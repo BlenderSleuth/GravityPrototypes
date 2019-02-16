@@ -34,10 +34,6 @@ onready var player_camera_control = $PlayerCameraControl
 export (NodePath) var front_camera_path
 onready var front_camera = get_node(front_camera_path)
 
-# Raycasts:
-#onready var raycast_down := $PlayerControl/RayCastDown as RayCast
-#onready var raycast_front := $PlayerControl/RayCastFront as RayCast
-#onready var raycast_back := $PlayerControl/RayCastBack as RayCast
 
 # Player velocity in global coordinates
 var velocity = Vector3()

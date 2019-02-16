@@ -36,21 +36,6 @@ __meta__ = {
 
 [node name="PlayerControl" type="Spatial" parent="."]
 
-[node name="RayCastDown" type="RayCast" parent="PlayerControl"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.396755, 0 )
-visible = false
-cast_to = Vector3( 0, -80, 0 )
-
-[node name="RayCastFront" type="RayCast" parent="PlayerControl"]
-transform = Transform( 1, 2.80971e-008, -1.02265e-008, -2.80971e-008, 0.766044, -0.642788, -1.02265e-008, 0.642788, 0.766044, 0, 2.45434, 0 )
-visible = false
-cast_to = Vector3( 0, -80, 0 )
-
-[node name="RayCastBack" type="RayCast" parent="PlayerControl"]
-transform = Transform( 1, -2.80971e-008, -1.02265e-008, 2.80971e-008, 0.766044, 0.642788, -1.02265e-008, -0.642788, 0.766044, 0, 2.45434, 0 )
-visible = false
-cast_to = Vector3( 0, -80, 0 )
-
 [node name="PlayerMesh" type="MeshInstance" parent="PlayerControl"]
 editor/display_folded = true
 transform = Transform( 1, 0, 2.98023e-008, 0, 1, 0, -2.98023e-008, 0, 1, 0, 0, 0 )
