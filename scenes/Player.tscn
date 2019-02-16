@@ -34,7 +34,25 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="PlayerMesh" type="MeshInstance" parent="."]
+[node name="PlayerControl" type="Spatial" parent="."]
+
+[node name="RayCastDown" type="RayCast" parent="PlayerControl"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.396755, 0 )
+visible = false
+cast_to = Vector3( 0, -80, 0 )
+
+[node name="RayCastFront" type="RayCast" parent="PlayerControl"]
+transform = Transform( 1, 2.80971e-008, -1.02265e-008, -2.80971e-008, 0.766044, -0.642788, -1.02265e-008, 0.642788, 0.766044, 0, 2.45434, 0 )
+visible = false
+cast_to = Vector3( 0, -80, 0 )
+
+[node name="RayCastBack" type="RayCast" parent="PlayerControl"]
+transform = Transform( 1, -2.80971e-008, -1.02265e-008, 2.80971e-008, 0.766044, 0.642788, -1.02265e-008, -0.642788, 0.766044, 0, 2.45434, 0 )
+visible = false
+cast_to = Vector3( 0, -80, 0 )
+
+[node name="PlayerMesh" type="MeshInstance" parent="PlayerControl"]
+editor/display_folded = true
 transform = Transform( 1, 0, 2.98023e-008, 0, 1, 0, -2.98023e-008, 0, 1, 0, 0, 0 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
@@ -42,7 +60,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Nose" type="MeshInstance" parent="PlayerMesh"]
+[node name="Nose" type="MeshInstance" parent="PlayerControl/PlayerMesh"]
 transform = Transform( 1, -1.77636e-015, 5.29396e-023, 0, -4.37114e-008, 1, -1.77636e-015, -1, -4.37114e-008, 0, 0.3, -1.2 )
 mesh = SubResource( 5 )
 material/0 = null
@@ -57,7 +75,7 @@ __meta__ = {
 }
 
 [node name="PlayerCamera" type="Camera" parent="PlayerCameraControl"]
-transform = Transform( 1, 0, 0, 0, 0.788011, 0.615662, 0, -0.615662, 0.788011, 0, 23.38, 24.89 )
+transform = Transform( 1, 0, 0, 0, 0.880478, 0.474088, 0, -0.474088, 0.880478, 0, 19.05, 24.89 )
 current = true
 fov = 60.0
 far = 500.0

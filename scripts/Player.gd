@@ -1,5 +1,7 @@
 extends KinematicBody
 
+class_name Player
+
 # Tweakable properties
 var gravity = 5
 # Move speed
@@ -13,7 +15,7 @@ var jump_speed = 14
 var jump_time = 0.35 # Time in seconds for control over jump
 
 # Interpolation speed for player rotation, deg/sec
-var rot_speed = deg2rad(200)
+var rot_speed = deg2rad(180)
 
 # Arbitrary measure for how much camera rotation to mouse move distance
 var mouse_sensitivity = 0.1
@@ -23,7 +25,7 @@ export (NodePath) var planet_path
 var planet: Planet
 
 # Visual representation of play that is rotated
-onready var player_mesh = $PlayerMesh
+onready var player_control = $PlayerControl
 
 # Cameras
 onready var player_camera = $PlayerCameraControl/PlayerCamera
@@ -31,6 +33,11 @@ onready var player_camera_control = $PlayerCameraControl
 
 export (NodePath) var front_camera_path
 onready var front_camera = get_node(front_camera_path)
+
+# Raycasts:
+#onready var raycast_down := $PlayerControl/RayCastDown as RayCast
+#onready var raycast_front := $PlayerControl/RayCastFront as RayCast
+#onready var raycast_back := $PlayerControl/RayCastBack as RayCast
 
 # Player velocity in global coordinates
 var velocity = Vector3()
@@ -134,7 +141,7 @@ func rotate_forward(local_player_movement, delta):
 	if movement.length() > 0:
 		last_move = movement
 
-	var mesh_basis = player_mesh.transform.basis
+	var mesh_basis = player_control.transform.basis
 
 	# Find the angle between the current front and last_move vectors
 	var front = -mesh_basis.z
@@ -148,7 +155,7 @@ func rotate_forward(local_player_movement, delta):
 		var slerped_rotation = Quat(mesh_basis).slerp(target_rotation, 10*delta)
 
 		# Apply slerped rotation
-		player_mesh.transform.basis = Basis(slerped_rotation).orthonormalized()
+		player_control.transform.basis = Basis(slerped_rotation).orthonormalized()
 
 
 func _physics_process(delta):
@@ -204,7 +211,7 @@ func _input(event):
 func die():
 	# Reset Velocity and Rotation
 	velocity = Vector3()
-	player_mesh.transform.basis = Basis()
+	player_control.transform.basis = Basis()
 	last_move = Vector3()
 	# Reset Camera
 	player_camera_control.transform.basis = Basis()

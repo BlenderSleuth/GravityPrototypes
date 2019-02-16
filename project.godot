@@ -13,24 +13,28 @@ _global_script_classes=[ {
 "class": "Planet",
 "language": "GDScript",
 "path": "res://scripts/Planet.gd"
+}, {
+"base": "KinematicBody",
+"class": "Player",
+"language": "GDScript",
+"path": "res://scripts/Player.gd"
 } ]
 _global_script_class_icons={
-"Planet": ""
+"Planet": "",
+"Player": ""
 }
 
 [application]
 
 config/name="GravityPrototypes"
-run/main_scene="res://scenes/Path.tscn"
+run/main_scene="res://scenes/PathLevel.tscn"
 config/icon="res://textures/icon/icon.png"
 
 [debug]
 
 gdscript/warnings/unused_argument=false
-
-[display]
-
-window/size/fullscreen=true
+gdscript/warnings/return_value_discarded=false
+gdscript/warnings/integer_division=false
 
 [input]
 
