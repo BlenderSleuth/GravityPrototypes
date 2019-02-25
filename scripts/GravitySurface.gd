@@ -1,6 +1,8 @@
-extends MeshInstance
+extends Spatial
 
 class_name GravitySurface
+
+export(Mesh) var mesh
 
 # Array of triangles in clockwise winding
 onready var triangles: PoolVector3Array = mesh.get_faces()
@@ -77,9 +79,8 @@ func find_triangle(from: Vector3, dir: Vector3) -> Array:
 func edge_function(a: Vector2, b: Vector2, c: Vector2) -> float:
 	return (c.x - a.x) * (b.y - a.y) - (c.y - a.y) * (b.x - a.x)
 
-
+var smoothed_normal := Vector3.UP
 func get_smoothed_normal(from: Vector3, dir: Vector3) -> Vector3:
-	var smoothed_normal := Vector3()
 
 	var triangle = find_triangle(from, dir)
 	if triangle:
@@ -94,33 +95,35 @@ func get_smoothed_normal(from: Vector3, dir: Vector3) -> Vector3:
 		var axis := normal.cross(Vector3.UP).normalized()
 		var angle := normal.angle_to(Vector3.UP)
 
-		v0 = v0.rotated(axis, angle)
-		v1 = v1.rotated(axis, angle)
-		v2 = v2.rotated(axis, angle)
-		intersection = intersection.rotated(axis, angle)
+		if axis.length_squared() > 0:
+			v0 = v0.rotated(axis, angle)
+			v1 = v1.rotated(axis, angle)
+			v2 = v2.rotated(axis, angle)
+			intersection = intersection.rotated(axis, angle)
 
-		# Discard y axis
-		var v0_2D := Vector2(v0.x, v0.z)
-		var v1_2D := Vector2(v1.x, v1.z)
-		var v2_2D := Vector2(v2.x, v2.z)
-		var p := Vector2(intersection.x, intersection.z)
+			# Discard y axis
+			var v0_2D := Vector2(v0.x, v0.z)
+			var v1_2D := Vector2(v1.x, v1.z)
+			var v2_2D := Vector2(v2.x, v2.z)
+			var p := Vector2(intersection.x, intersection.z)
 
-		# 2x area of triangle
-		var area := edge_function(v0_2D, v1_2D, v2_2D)
-		# Barycentric coordinates
-		var w0 := edge_function(v1_2D, v2_2D, p) / area
-		var w1 := edge_function(v2_2D, v0_2D, p) / area
-		var w2 := edge_function(v0_2D, v1_2D, p) / area
+			# 2x area of triangle
+			var area := edge_function(v0_2D, v1_2D, v2_2D)
 
-		# Find vertex normals for current triangle
-		var v0_normal := vertex_normals[triangle[0]] as Vector3
-		var v1_normal := vertex_normals[triangle[1]] as Vector3
-		var v2_normal := vertex_normals[triangle[2]] as Vector3
+			# Barycentric coordinates
+			var w0 := edge_function(v1_2D, v2_2D, p) / area
+			var w1 := edge_function(v2_2D, v0_2D, p) / area
+			var w2 := edge_function(v0_2D, v1_2D, p) / area
 
-		# Interpolate vertex normals with barycentric coordinates to get a smoothed normal
-		smoothed_normal = Basis(v0_normal, v1_normal, v2_normal).xform(Vector3(w0, w1, w2))
-		# Equivalent to:
-		# smoothed_normal = w0 * v0_normal + w1 * v1_normal + w2 * v2_normal
+			# Find vertex normals for current triangle
+			var v0_normal := vertex_normals[triangle[0]] as Vector3
+			var v1_normal := vertex_normals[triangle[1]] as Vector3
+			var v2_normal := vertex_normals[triangle[2]] as Vector3
+
+			# Interpolate vertex normals with barycentric coordinates to get a smoothed normal
+			smoothed_normal = Basis(v0_normal, v1_normal, v2_normal).xform(Vector3(w0, w1, w2))
+			# Equivalent to:
+			# smoothed_normal = w0 * v0_normal + w1 * v1_normal + w2 * v2_normal
 
 
 	return smoothed_normal

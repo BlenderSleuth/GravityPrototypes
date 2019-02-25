@@ -1,14 +1,7 @@
 extends Spatial
 
-onready var player = $Player
-onready var player_start = Transform()
+onready var player: Player = $Player
 
-
-func _ready():
-	player_start = player.transform
-
-func reset():
-	player.transform = player_start
 
 func _process(delta: float) -> void:
 	OS.set_window_title("fps: " + str(Engine.get_frames_per_second()))
@@ -16,5 +9,9 @@ func _process(delta: float) -> void:
 # Called when player should die
 func _on_player_die(body):
 	if body == player:
-		reset()
-		player.die()
+		Main.reset_scene()
+
+
+func _on_Portal_body_entered(body: Node) -> void:
+	if body == player:
+		Main.next_scene()

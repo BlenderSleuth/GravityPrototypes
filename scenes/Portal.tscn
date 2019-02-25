@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://materials/PortalBase.material" type="Material" id=1]
+[ext_resource path="res://materials/PortalParticles.material" type="Material" id=2]
+[ext_resource path="res://materials/particles.material" type="Material" id=3]
+
+[sub_resource type="CylinderShape" id=1]
+radius = 2.4083
+height = 16.0
+
+[sub_resource type="CylinderMesh" id=2]
+material = ExtResource( 1 )
+top_radius = 4.0
+bottom_radius = 4.0
+height = 1.0
+
+[sub_resource type="SphereMesh" id=8]
+material = ExtResource( 3 )
+radial_segments = 8
+rings = 4
+
+[node name="Portal" type="Area"]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.93935, 0 )
+shape = SubResource( 1 )
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.82903, 0 )
+light_color = Color( 0.396078, 0.0784314, 0.960784, 1 )
+light_energy = 5.0
+omni_range = 15.4
+omni_attenuation = 0.615572
+
+[node name="Base" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.390989, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 1.53864, 0 )
+amount = 30
+lifetime = 2.78
+randomness = 0.5
+visibility_aabb = AABB( -2.81626, -2.84649, -6.47637, 5.63252, 5.69296, 12.9527 )
+process_material = ExtResource( 2 )
+draw_pass_1 = SubResource( 8 )
+

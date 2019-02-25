@@ -204,11 +204,3 @@ func _input(event):
 		player_camera_control.rotation_degrees += Vector3(0, rot_y, 0)
 
 
-func die():
-	# Reset Velocity and Rotation
-	velocity = Vector3()
-	player_control.transform.basis = Basis()
-	last_move = Vector3()
-	# Reset Camera
-	player_camera_control.transform.basis = Basis()
-

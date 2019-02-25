@@ -1,27 +1,30 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://textures/crosshair.png" type="Texture" id=2]
+[ext_resource path="res://materials/concrete.material" type="Material" id=3]
+[ext_resource path="res://materials/metalgrid2.material" type="Material" id=4]
+[ext_resource path="res://materials/metalplates.material" type="Material" id=5]
+[ext_resource path="res://materials/particles.material" type="Material" id=6]
+[ext_resource path="res://materials/PortalBase.material" type="Material" id=7]
 
 [sub_resource type="CylinderShape" id=1]
 
-
 [sub_resource type="CylinderMesh" id=2]
 
-
 [sub_resource type="SpatialMaterial" id=3]
-
 albedo_color = Color( 0.996078, 0.52549, 0.0235294, 1 )
 
 [sub_resource type="SpatialMaterial" id=4]
-
 albedo_color = Color( 0.054902, 0.819608, 0.498039, 1 )
 
 [sub_resource type="CylinderMesh" id=5]
-
 material = SubResource( 4 )
 top_radius = 0.2
 bottom_radius = 0.5
 height = 1.5
+
+[sub_resource type="QuadMesh" id=6]
 
 [node name="Player" type="KinematicBody"]
 transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 0, 0, 0 )
@@ -64,4 +67,37 @@ transform = Transform( 1, 0, 0, 0, 0.880478, 0.474088, 0, -0.474088, 0.880478, 0
 current = true
 fov = 60.0
 far = 500.0
+
+[node name="Sprite3D" type="Sprite3D" parent="PlayerCameraControl/PlayerCamera"]
+transform = Transform( 1, 0, 0, 0, 1, -8.07561e-017, 0, -8.07561e-017, 1, -5.68434e-014, -9.53674e-007, -2 )
+pixel_size = 0.0005
+texture = ExtResource( 2 )
+
+[node name="ShaderCache" type="Spatial" parent="PlayerCameraControl/PlayerCamera"]
+editor/display_folded = true
+
+[node name="1" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="2" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
+mesh = SubResource( 6 )
+material/0 = ExtResource( 3 )
+
+[node name="3" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
+mesh = SubResource( 6 )
+material/0 = ExtResource( 4 )
+
+[node name="4" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
+mesh = SubResource( 6 )
+material/0 = ExtResource( 5 )
+
+[node name="5" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
+visible = false
+mesh = SubResource( 6 )
+material/0 = ExtResource( 6 )
+
+[node name="6" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
+mesh = SubResource( 6 )
+material/0 = ExtResource( 7 )
 

@@ -4,7 +4,6 @@ extends Planet
 onready var gravity_surface: GravitySurface = $GravitySurface
 
 
-var grav_vec := Vector3()
 func get_gravity_vec(player_transform: Transform) -> Vector3:
 
 	var ray_length := 160
