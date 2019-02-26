@@ -8,17 +8,18 @@ var gravity = 5
 var run_speed = 8
 var fly_speed = 1.0
 # Dampening
-var run_damp = 0.8
+var run_damp = 0.87
 var fly_damp = 0.98
 # Jump properties
-var jump_speed = 14
-var jump_time = 0.35 # Time in seconds for control over jump
+var jump_speed = 16
+var jump_time = 0.32 # Time in seconds for control over jump
 
 # Interpolation speed for player rotation, deg/sec
 var rot_speed = deg2rad(180)
 
 # Arbitrary measure for how much camera rotation to mouse move distance
 var mouse_sensitivity = 0.1
+var cam_key_sensitivity = 1
 
 # Planet to be attracted to
 export (NodePath) var planet_path
@@ -59,6 +60,12 @@ func _process(delta):
 			player_camera_control.transform.basis = Basis()
 		else:
 			player_camera.make_current()
+
+	# Control camera with arrow keys
+	if Input.is_action_pressed("cam_left"):
+		player_camera_control.rotation_degrees += Vector3(0, cam_key_sensitivity, 0)
+	if Input.is_action_pressed("cam_right"):
+		player_camera_control.rotation_degrees += Vector3(0, -cam_key_sensitivity, 0)
 
 	# Let go of mouse if esc is pressed
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -199,8 +206,7 @@ func _input(event):
 	# If the event is a mouse event
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		# Only use horizontal motion to control camera
-		var rot_y = event.relative.x * mouse_sensitivity * -1
+		var rot_y = -event.relative.x * mouse_sensitivity
 
 		player_camera_control.rotation_degrees += Vector3(0, rot_y, 0)
-
 
