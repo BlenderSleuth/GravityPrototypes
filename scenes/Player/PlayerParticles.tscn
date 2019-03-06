@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://materials/particle.tres" type="QuadMesh" id=1]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 0.128002, 1, 0.113281, 1, 0, 0.273438, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.0841744, 0.9356 ), 1.88046, 1.88046, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 2.0
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = -1.#QNAN
+radial_accel = 30.0
+radial_accel_random = 0.2
+damping = 25.77
+scale = 2.0
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Particles" type="Particles" parent="."]
+amount = 16
+lifetime = 2.0
+speed_scale = 2.0
+local_coords = false
+process_material = SubResource( 5 )
+draw_pass_1 = ExtResource( 1 )
+

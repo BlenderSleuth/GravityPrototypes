@@ -22,18 +22,14 @@ var mouse_sensitivity = 0.1
 var cam_key_sensitivity = 1
 
 # Planet to be attracted to
-export (NodePath) var planet_path
-var planet: Planet
+var planet: Planet = null
 
 # Visual representation of play that is rotated
 onready var player_control = $PlayerControl
 
 # Cameras
-onready var player_camera = $PlayerCameraControl/PlayerCamera
+onready var player_camera = $PlayerCameraControl/PlayerCamera as Camera
 onready var player_camera_control = $PlayerCameraControl
-
-export (NodePath) var front_camera_path
-onready var front_camera = get_node(front_camera_path)
 
 
 # Player velocity in global coordinates
@@ -41,25 +37,9 @@ var velocity = Vector3()
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	planet = get_node(planet_path) as Planet
-	if not planet:
-		print("Planet Problem")
-		assert(false)
 
 
-var using_front_camera = false
 func _process(delta):
-	# Switch between cameras when tab is pressed
-	if Input.is_action_just_pressed("ui_focus_next"):
-		# Toggle camera flag
-		using_front_camera = !using_front_camera
-
-		if using_front_camera:
-			front_camera.make_current()
-			# Reset player camera
-			player_camera_control.transform.basis = Basis()
-		else:
-			player_camera.make_current()
 
 	# Control camera with arrow keys
 	if Input.is_action_pressed("cam_left"):
@@ -163,7 +143,11 @@ func rotate_forward(local_player_movement, delta):
 
 func _physics_process(delta):
 	# Gravity vector is calculated by planet
-	var grav_vec = planet.get_gravity_vec(transform)
+	var grav_vec: Vector3
+	if planet:
+		grav_vec = planet.get_gravity_vec(transform)
+	else:
+		grav_vec = Vector3.DOWN
 
 	# Rotate player so down faces gravity
 	var down = -transform.basis.y
@@ -209,4 +193,11 @@ func _input(event):
 		var rot_y = -event.relative.x * mouse_sensitivity
 
 		player_camera_control.rotation_degrees += Vector3(0, rot_y, 0)
+
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_WHEEL_UP:
+			player_camera.fov -= 4
+		if event.button_index == BUTTON_WHEEL_DOWN:
+			player_camera.fov += 4
+		player_camera.fov = clamp(player_camera.fov, 10, 100)
 

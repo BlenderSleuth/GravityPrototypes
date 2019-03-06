@@ -4,6 +4,10 @@ importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/metalgrid1_basecolor.png-a2bc96b8946482347a4fdfa47a5fd605.s3tc.stex"
 path.etc2="res://.import/metalgrid1_basecolor.png-a2bc96b8946482347a4fdfa47a5fd605.etc2.stex"
+metadata={
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
+}
 
 [deps]
 
