@@ -67,7 +67,11 @@ light_energy = 2.0
 [node name="Portal" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 174.721, -3.70134, -72.5098 )
 
-[node name="Coins" type="Node" parent="."]
+[node name="Coins" type="Spatial" parent="."]
+editor/display_folded = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Coin8" parent="Coins" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 121.911, -6, 17.4351 )

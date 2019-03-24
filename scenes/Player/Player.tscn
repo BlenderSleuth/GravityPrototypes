@@ -4,13 +4,12 @@
 [ext_resource path="res://scenes/Player/PlayerModel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://textures/crosshair.png" type="Texture" id=3]
 [ext_resource path="res://scripts/ShaderCache.gd" type="Script" id=4]
-[ext_resource path="res://materials/concrete.material" type="Material" id=5]
-[ext_resource path="res://materials/metalgrid2large.material" type="Material" id=6]
-[ext_resource path="res://materials/metalplateslarge.material" type="Material" id=7]
-[ext_resource path="res://materials/PortalBase.material" type="Material" id=8]
-[ext_resource path="res://materials/PortalParticles.material" type="Material" id=9]
-[ext_resource path="res://materials/particles.material" type="Material" id=10]
-[ext_resource path="res://scenes/GUI.tscn" type="PackedScene" id=11]
+[ext_resource path="res://materials/metalgrid2large.material" type="Material" id=5]
+[ext_resource path="res://materials/metalplateslarge.material" type="Material" id=6]
+[ext_resource path="res://materials/PortalBase.material" type="Material" id=7]
+[ext_resource path="res://materials/PortalParticles.material" type="Material" id=8]
+[ext_resource path="res://materials/particles.material" type="Material" id=9]
+[ext_resource path="res://scenes/GUI.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 2.56893
@@ -32,11 +31,14 @@ top_radius = 0.2
 bottom_radius = 0.5
 height = 1.5
 
-[sub_resource type="QuadMesh" id=7]
-size = Vector2( 0, 0 )
+[sub_resource type="SpatialMaterial" id=7]
 
 [sub_resource type="QuadMesh" id=8]
-material = ExtResource( 10 )
+material = SubResource( 7 )
+size = Vector2( 0, 0 )
+
+[sub_resource type="QuadMesh" id=9]
+material = ExtResource( 9 )
 size = Vector2( 0, 0 )
 
 [node name="Player" type="KinematicBody" groups=[
@@ -59,6 +61,7 @@ __meta__ = {
 }
 
 [node name="PlayerControl" type="Spatial" parent="."]
+editor/display_folded = true
 
 [node name="PlayerMeshOld" type="MeshInstance" parent="PlayerControl"]
 editor/display_folded = true
@@ -82,6 +85,7 @@ __meta__ = {
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, -0.00617313, 0 )
 
 [node name="PlayerCameraControl" type="Spatial" parent="."]
+editor/display_folded = true
 transform = Transform( 1, 0, 2.98023e-008, 0, 1, 0, -2.98023e-008, 0, 1, 0, 0, 0 )
 __meta__ = {
 "_edit_lock_": true
@@ -94,7 +98,6 @@ far = 500.0
 
 [node name="Sprite3D" type="Sprite3D" parent="PlayerCameraControl/PlayerCamera"]
 transform = Transform( 1, 0, 0, 0, 1, -8.07561e-017, 0, -8.07561e-017, 1, -5.68434e-014, -9.53674e-007, -2 )
-visible = false
 pixel_size = 0.0005
 texture = ExtResource( 3 )
 
@@ -102,33 +105,29 @@ texture = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, -8.07561e-017, 0, -8.07561e-017, 1, 0, 0, -10 )
 script = ExtResource( 4 )
 
-[node name="1" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
-mesh = SubResource( 7 )
+[node name="2" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
+mesh = SubResource( 8 )
 material/0 = null
 
-[node name="2" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
-mesh = SubResource( 7 )
+[node name="3" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
+mesh = SubResource( 8 )
 material/0 = ExtResource( 5 )
 
-[node name="3" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
-mesh = SubResource( 7 )
+[node name="4" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
+mesh = SubResource( 8 )
 material/0 = ExtResource( 6 )
 
-[node name="4" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
-mesh = SubResource( 7 )
-material/0 = ExtResource( 7 )
-
 [node name="5" type="MeshInstance" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
-mesh = SubResource( 7 )
-material/0 = ExtResource( 8 )
+mesh = SubResource( 8 )
+material/0 = ExtResource( 7 )
 
 [node name="Particles" type="Particles" parent="PlayerCameraControl/PlayerCamera/ShaderCache"]
 transform = Transform( 1, 0, 0, 0, 1, -8.07561e-017, 0, -8.07561e-017, 1, 0, 0, 0 )
 amount = 1
 one_shot = true
 speed_scale = 0.0
-process_material = ExtResource( 9 )
-draw_pass_1 = SubResource( 8 )
+process_material = ExtResource( 8 )
+draw_pass_1 = SubResource( 9 )
 
-[node name="GUI" parent="." instance=ExtResource( 11 )]
+[node name="GUI" parent="." instance=ExtResource( 10 )]
 
