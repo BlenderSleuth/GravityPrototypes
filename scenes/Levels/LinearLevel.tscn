@@ -4,7 +4,7 @@
 [ext_resource path="res://textures/spacebackground.png" type="Texture" id=2]
 [ext_resource path="res://scripts/Planet.gd" type="Script" id=3]
 [ext_resource path="res://meshes/LinearLevel.mesh" type="ArrayMesh" id=4]
-[ext_resource path="res://materials/metalgrid2large.material" type="Material" id=5]
+[ext_resource path="res://materials/metalgrid2small.material" type="Material" id=5]
 [ext_resource path="res://scenes/Player/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/Portal.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Objects/Coin.tscn" type="PackedScene" id=8]
@@ -51,7 +51,6 @@ far = 8192.0
 transform = Transform( 1, 0, -1.06581e-014, 0, 1, 0, 1.06581e-014, 0, 1, 0, 20.9085, 0 )
 
 [node name="DieBox" type="Area" parent="."]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 51.3845, 28.1304, -17.0808 )
 input_ray_pickable = true
 monitorable = false

@@ -5,8 +5,9 @@
 [ext_resource path="res://materials/metalgrid2.material" type="Material" id=3]
 [ext_resource path="res://scenes/Player/PlayerParticles.tscn" type="PackedScene" id=4]
 [ext_resource path="res://materials/metal.material" type="Material" id=5]
-[ext_resource path="res://materials/metalgrid2large.material" type="Material" id=6]
+[ext_resource path="res://materials/metalgrid2small.material" type="Material" id=6]
 [ext_resource path="res://scenes/Player/Eyes.tscn" type="PackedScene" id=7]
+
 
 [sub_resource type="SpatialMaterial" id=1]
 emission_enabled = true

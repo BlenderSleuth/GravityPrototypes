@@ -4,12 +4,13 @@
 [ext_resource path="res://scenes/Player/PlayerModel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://textures/crosshair.png" type="Texture" id=3]
 [ext_resource path="res://scripts/ShaderCache.gd" type="Script" id=4]
-[ext_resource path="res://materials/metalgrid2large.material" type="Material" id=5]
+[ext_resource path="res://materials/metalgrid2small.material" type="Material" id=5]
 [ext_resource path="res://materials/metalplateslarge.material" type="Material" id=6]
 [ext_resource path="res://materials/PortalBase.material" type="Material" id=7]
 [ext_resource path="res://materials/PortalParticles.material" type="Material" id=8]
 [ext_resource path="res://materials/particles.material" type="Material" id=9]
 [ext_resource path="res://scenes/GUI.tscn" type="PackedScene" id=10]
+
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 2.56893
